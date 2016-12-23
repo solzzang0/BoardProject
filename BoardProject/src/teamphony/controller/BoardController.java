@@ -251,7 +251,7 @@ public class BoardController {
 		return service.getAttach(bno);
 	}
 	
-	
+	//test  commit;
 	
 	
 
