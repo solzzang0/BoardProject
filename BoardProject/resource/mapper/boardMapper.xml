@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="teamphony.store.mapper.BoardMapper">
+
+<insert id="create">
+	<selectKey resultType="int" keyProperty="bno" order="BEFORE">
+			SELECT BOARD_TB_BNO_SEQ.NEXTVAL 
+			FROM DUAL 
+	</selectKey>
+			
+		INSERT
+		INTO BOARD_TB
+		  (
+		  	BNO
+			,TITLE
+			,CONTENT
+			,REGDATE
+		  )
+		  
+		  VALUES
+		  (
+		  	 #{bno}
+			,#{title}
+			,#{content}
+			,SYSDATE
+		  )
+		  
+</insert>
+
+
+
+<select id="read" parameterType="int" resultType="BoardVO">
+		SELECT 					
+			BNO					AS bno
+			,TITLE				AS title
+			,CONTENT            AS content
+			,REGDATE            AS regdate
+			,VIEWCNT            AS viewCnt
+		FROM BOARD_TB            
+			WHERE BNO= #{bno }
+
+</select>
+
+<update id="update" parameterType="BoardVO">
+		UPDATE BOARD_TB
+				SET 
+				TITLE			= #{title, jdbcType=VARCHAR  }
+				,CONTENT		= #{content, jdbcType=VARCHAR }
+			WHERE BNO			= #{bno }
+</update>
+
+<delete id="delete" parameterType="int">
+
+		DELETE
+		FROM BOARD_TB
+		WHERE BNO			= #{bno }
+
+</delete>
+
+<select id="listAll" resultType="BoardVO">
+
+		SELECT 
+			BNO				AS bno
+			,TITLE          AS title
+			,CONTENT        AS content
+			,REGDATE        AS regdate
+			,VIEWCNT        AS viewCnt
+		FROM BOARD_TB
+		WHERE BNO > 0 
+		ORDER BY BNO DESC, REGDATE DESC
+
+</select>
+
+<insert id="addAttach">
+
+		INSERT INTO ATTACH_TB
+		(
+			FULL_NAME
+			,BNO
+		) 
+		VALUES
+		(
+		#{fullName }
+		,LAST_INSERT_ID()	
+		)
+
+</insert>
+
+<select id="getAttach" resultType="String">
+
+		SELECT 
+			FULL_NAME
+			FROM ATTACH_TB 
+			WHERE BNO = 1
+		ORDER BY REGDATE ASC;
+</select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

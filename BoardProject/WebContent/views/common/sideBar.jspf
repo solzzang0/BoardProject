@@ -1,0 +1,85 @@
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JSP</title>
+</head>
+<body>
+
+	<!-- Sidenav/menu -->
+	<nav class="w3-sidenav w3-collapse w3-white w3-animate-left "
+		style="z-index: 3; width: 250px;" id="mySidenav">
+		<br>
+		<div class="w3-container w3-card-4 w3-padding-16"
+			style="margin-bottom: 20px;">
+			<a href="#" onclick="w3_close()"
+				class="w3-hide-large w3-right w3-jumbo w3-padding"
+				title="close menu"> <i class="fa fa-remove"></i></a> 
+				
+				<c:choose>
+					<c:when test="${member.imagePath eq 'pass' }">
+						<img src="${pageContext.request.contextPath}/resources/images/default.png" style="width: 45%;" class="w3-round">
+					</c:when>
+					<c:otherwise>
+					<img src="${pageContext.request.contextPath}/resources/images/${member.memberId}/${member.imagePath}"
+					style="width: 45%;" class="w3-round">
+				</c:otherwise>
+				</c:choose>
+				<br> <br>
+			<h4 class="w3-padding-0">
+				<b>${member.memberId}</b>
+			</h4>
+			<p class="w3-text-grey">${member.alias}</p>
+		</div>
+
+		<a href="${pageContext.request.contextPath}/team/search.do" id="menu1"
+			name="menuItem" onclick="clickCheck('menu1');closeAcc();"
+			class="w3-padding w3-card-4"><i
+			class="fa fa-wrench fa-fw w3-margin-right"></i>팀 관리</a> <a
+			href="${pageContext.request.contextPath}/post/list.do" id="menu2"
+			name="menuItem" onclick="clickCheck('menu2');closeAcc()"
+			class="w3-padding w3-card-4"><i
+			class="fa fa-clipboard fa-fw w3-margin-right"></i>게시판</a>
+
+
+		<div class="w3-accordian">
+			<a href="#" id="menu3" name="menuItem"
+				onclick="myAccFunc();clickCheck('menu3');"
+				class="w3-padding w3-card-4"><i
+				class="fa fa-pencil fa-fw w3-margin-right"></i>과제<i
+				class="w3-right fa fa-caret-down"></i></a>
+
+
+			<div id="subMenu" class="w3-accordion-content w3-white w3-card-4">
+				<a href="${pageContext.request.contextPath}/assignment/searchAll.do" id="sub1" name="subMenuItem"
+					onclick="clickCheck_sub('sub1')">부여과제</a> <a href="${pageContext.request.contextPath}/submission/searchAll.do" id="sub2"
+					name="subMenuItem" onclick="clickCheck_sub('sub2')">제출과제</a>
+			</div>
+
+		</div>
+
+		<a href="${pageContext.request.contextPath}/schedule/calendar.do"
+			id="menu4" name="menuItem" onclick="clickCheck('menu4');closeAcc();"
+			class="w3-padding w3-card-4"><i
+			class="fa fa-calendar fa-fw w3-margin-right"></i>일정관리</a> 
+			
+			<a href="${pageContext.request.contextPath}/member/evaluationList.do"
+			id="menu5" name="menuItem" onclick="clickCheck('menu5');closeAcc();"
+			class="w3-padding w3-card-4"><i
+			class="fa fa-check-square-o fa-fw w3-margin-right"></i>팀원평가</a>
+			
+			<a href="${pageContext.request.contextPath}/place/searchAll.do" 
+			id="menu6" name="menuItem"
+			onclick="clickCheck('menu6');closeAcc();"
+			class="w3-padding w3-card-4"><i
+			class="fa fa-info fa-fw w3-margin-right"></i>장소정보</a>
+
+	</nav>
+
+</body>
+</html>
